@@ -55,54 +55,60 @@
 <body>
 
     <!-- NAVBAR (DARK) -->
-    <nav class="navbar navbar-expand-lg bg-dark-custom py-4">
-        <div class="container d-flex justify-content-center">
-            <ul class="navbar-nav flex-row flex-wrap justify-content-center gap-3 gap-md-5">
-                <li class="nav-item"><a class="nav-link mono-text text-white" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link mono-text text-white" href="#cases">Riwayat Pendidikan</a></li>
-                <li class="nav-item"><a class="nav-link mono-text text-white" href="#github">GitHub Repository</a></li>
-                <li class="nav-item"><a class="nav-link mono-text text-white" href="#hobi">Hobi</a></li>
-                <li class="nav-item"><a class="nav-link mono-text text-white" href="#contact">Kontak Saya</a></li>
-            </ul>
-            <!-- Tautan Ikon Sosial Media Navbar -->
-            <div class="ms-5 d-none d-lg-flex gap-3 text-white">
-                <a href="https://www.linkedin.com/in/devano-saputra-04794a307" target="_blank" class="text-white text-decoration-none"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/devanosaputra_" target="_blank" class="text-white text-decoration-none"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://github.com/devano12" target="_blank" class="text-white text-decoration-none"><i class="fa-brands fa-github"></i></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-custom py-3 py-lg-4">
+        <div class="container">
+            <a class="navbar-brand d-lg-none fw-bold mono-text text-white m-0" href="#">DS.</a>
+            <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+                <ul class="navbar-nav gap-2 gap-lg-5 text-center pt-3 pt-lg-0">
+                    <li class="nav-item"><a class="nav-link mono-text text-white" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link mono-text text-white" href="#cases">Riwayat Pendidikan</a></li>
+                    <li class="nav-item"><a class="nav-link mono-text text-white" href="#github">GitHub Repository</a></li>
+                    <li class="nav-item"><a class="nav-link mono-text text-white" href="#hobi">Hobi</a></li>
+                    <li class="nav-item"><a class="nav-link mono-text text-white" href="#contact">Kontak Saya</a></li>
+                </ul>
+                <!-- Tautan Ikon Sosial Media Navbar -->
+                <div class="ms-lg-5 mt-3 mt-lg-0 d-flex justify-content-center gap-4 gap-lg-3 text-white">
+                    <a href="https://www.linkedin.com/in/devano-saputra-04794a307" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/devanosaputra_" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://github.com/devano12" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none"><i class="fa-brands fa-github"></i></a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- HERO SECTION (DARK) -->
-    <section class="bg-dark-custom text-light-custom py-5">
-        <div class="container py-5 my-5">
-            <div class="row align-items-center">
+    <section class="bg-dark-custom text-light-custom py-4 py-lg-5">
+        <div class="container py-3 py-lg-5 my-lg-5">
+            <div class="row align-items-center flex-column-reverse flex-lg-row">
                 <!-- Kolom Kiri: Teks dan Interests -->
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h1 class="display-3 fw-bold mb-4">Devano Saputra</h1>
-                    <p class="mono-text mb-5 w-75">
+                <div class="col-lg-6 text-center text-lg-start mt-4 mt-lg-0">
+                    <h1 class="display-3 fw-bold mb-3 mb-lg-4">Devano Saputra</h1>
+                    <p class="mono-text mb-4 mx-auto mx-lg-0" style="max-width: 520px;">
                         Beginner Software Engineer & Informatics Student at UKSW Salatiga
                     </p>
-                    <p class="mono-text mb-5 w-75">
+                    <p class="mono-text mb-4 mb-lg-5 mx-auto mx-lg-0" style="max-width: 540px;">
                         "Halo! Saya seorang mahasiswa Teknik Informatika di UKSW Salatiga yang berfokus pada pengembangan perangkat lunak (Software Engineering). Berpengalaman dalam membangun aplikasi web, RESTful API, serta eksplorasi proyek open-source. Selalu bersemangat untuk mempelajari teknologi baru dan menyelesaikan masalah lewat kode."
                     </p>
                     <a href="#github" class="btn-neon text-decoration-none py-2 px-4 d-inline-block">Explore My Projects &gt;</a>
 
                     <!-- Personal Interests -->
-                    <div class="mt-5 pt-5">
+                    <div class="mt-4 mt-lg-5 pt-3 pt-lg-5">
                         <p class="mono-text mb-3 fw-bold" style="font-size: 1.1rem;">Personal Interests</p>
                         
-                        <div class="d-flex flex-wrap gap-4 align-items-center">
-                            <a href="https://www.instagram.com/devanosaputra_" target="_blank" class="text-decoration-none text-led-animated">
+                        <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 gap-md-4 align-items-center">
+                            <a href="https://www.instagram.com/devanosaputra_" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-led-animated">
                                 <h5 class="m-0"><i class="fa-brands fa-instagram"></i> Instagram</h5>
                             </a>
-                            <a href="https://www.tiktok.com/@serpihanakar" target="_blank" class="text-decoration-none text-led-animated">
+                            <a href="https://www.tiktok.com/@serpihanakar" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-led-animated">
                                 <h5 class="m-0"><i class="fa-brands fa-tiktok"></i> TikTok</h5>
                             </a>
-                            <a href="https://github.com/devano12" target="_blank" class="text-decoration-none text-led-animated">
+                            <a href="https://github.com/devano12" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-led-animated">
                                 <h5 class="m-0"><i class="fa-brands fa-github"></i> GitHub</h5>
                             </a>
-                            <a href="https://www.linkedin.com/in/devano-saputra-04794a307" target="_blank" class="text-decoration-none text-led-animated">
+                            <a href="https://www.linkedin.com/in/devano-saputra-04794a307" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-led-animated">
                                 <h5 class="m-0"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</h5>
                             </a>
                         </div>
@@ -111,7 +117,7 @@
 
                 <!-- Kolom Kanan: Foto Profil -->
                 <div class="col-lg-6 text-center text-lg-end">
-                    <img src="foto/pp.jpg" alt="Foto Profil Devano Saputra" class="rounded-circle img-fluid" style="width: 450px; aspect-ratio: 1 / 1; object-fit: cover;">
+                    <img src="foto/pp.jpg" alt="Foto Profil Devano Saputra" class="rounded-circle img-fluid hero-avatar">
                 </div>
             </div>
         </div>
@@ -178,10 +184,12 @@
             <div class="row text-start g-4">
                 <!-- GitHub Repository 1: Cryptex Miner -->
                 <div class="col-md-6">
-                    <a href="https://github.com/devano12/Kryptex-miner" target="_blank" class="text-decoration-none">
-                        <div class="testimonial-card">
-                            <span class="quote-icon">“</span>
-                            <p class="mono-text text-white mt-4 mb-4">"Repositori berisi proyek aplikasi/script Cryptex Miner. Mengimplementasikan logika pemrosesan data, optimasi performa hardware, dan manajemen eksekusi tugas."</p>
+                    <a href="https://github.com/devano12/Kryptex-miner" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-block h-100">
+                        <div class="testimonial-card h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <span class="quote-icon">“</span>
+                                <p class="mono-text text-white mt-4 mb-4">"Repositori berisi proyek aplikasi/script Cryptex Miner. Mengimplementasikan logika pemrosesan data, optimasi performa hardware, dan manajemen eksekusi tugas."</p>
+                            </div>
                             <div class="d-flex align-items-center mt-3">
                                 <img src="https://picsum.photos/50/50?random=11" alt="Client" class="rounded-circle me-3" width="40" height="40">
                                 <h6 class="text-white m-0 fw-bold">Cryptex Miner</h6>
@@ -191,10 +199,12 @@
                 </div>
                 <!-- GitHub Repository 2: Web Services -->
                 <div class="col-md-6">
-                    <a href="https://github.com/devano12/simulasi-login" target="_blank" class="text-decoration-none">
-                        <div class="testimonial-card">
-                            <span class="quote-icon">“</span>
-                            <p class="mono-text text-white mt-4 mb-4">"Simulasi keamanan autentikasi untuk edukasi dan penelitian kesadaran keamanan siber (Cybersecurity Awareness)."</p>
+                    <a href="https://github.com/devano12/simulasi-login" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-block h-100">
+                        <div class="testimonial-card h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <span class="quote-icon">“</span>
+                                <p class="mono-text text-white mt-4 mb-4">"Simulasi keamanan autentikasi untuk edukasi dan penelitian kesadaran keamanan siber (Cybersecurity Awareness)."</p>
+                            </div>
                             <div class="d-flex align-items-center mt-3">
                                 <img src="https://picsum.photos/50/50?random=12" alt="Client" class="rounded-circle me-3" width="40" height="40">
                                 <h6 class="text-white m-0 fw-bold">Simulasi Keamanan Login (Cybersecurity Study)</h6>
@@ -208,7 +218,7 @@
 
     <!-- Hobi -->
     <section id="hobi" class="bg-light-custom text-dark-custom py-5">
-        <div class="container py-5 text-center">
+        <div class="container py-4 py-lg-5 text-center">
             <h2 class="display-5 fw-bold mb-3">Hobi</h2>
             <p class="mono-text mx-auto mb-5 text-secondary" style="max-width: 650px;">
                 Berikut saya sertakan hobi dan proyek-proyek yang sedang saya kerjakan, baik di bidang pengembangan perangkat lunak maupun eksplorasi teknologi lainnya.
@@ -217,7 +227,7 @@
             <div class="row text-start g-4">
                 <!-- Recent 1 -->
                 <div class="col-md-6">
-                    <video controls playsinline preload="metadata" class="img-fluid rounded" style="width: 450px; max-width: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
+                    <video controls playsinline preload="metadata" class="img-fluid rounded square-media w-100">
                         <source src="foto/1.mp4" type="video/mp4">
                     </video>
                     <h3 class="fw-bold mb-3 mt-3">Suka Editing Video dan Fotografi</h3>
@@ -226,7 +236,7 @@
                 </div>
                 <!-- Recent 2 -->
                 <div class="col-md-6">
-                    <img src="foto/gunung.jpg" alt="Hobi Mendaki Gunung Devano Saputra" class="img-fluid rounded" style="width: 450px; max-width: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
+                    <img src="foto/gunung.jpg" alt="Hobi Mendaki Gunung Devano Saputra" class="img-fluid rounded square-media w-100">
                     <h3 class="fw-bold mb-3 mt-3">Suka Mendaki Gunung</h3>
                     <p class="mono-text text-secondary mb-4">Jika ditanya Healing saya dimana ya di pegunungan.</p>
                     <button class="btn-neon py-2 px-4" style="font-size: 0.8rem;">Know more &gt;</button>
