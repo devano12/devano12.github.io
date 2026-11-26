@@ -108,9 +108,9 @@
 
         if (heroLeft && heroSec && scrollY < vh * 1.2) {
             const p = Math.min(1, Math.max(0, scrollY / vh));
-            heroLeft.style.transform = `translate3d(0, ${(p * -38).toFixed(1)}px, 0)`;
+            heroLeft.style.transform = `translate3d(0, ${(p * -24).toFixed(1)}px, 0)`;
             if (heroAvatarWrap && heroAvatarWrap.classList.contains("is-inview")) {
-                heroAvatarWrap.style.transform = `translate3d(0, ${(p * 28).toFixed(1)}px, 0)`;
+                heroAvatarWrap.style.transform = `translate3d(0, ${(p * -12).toFixed(1)}px, 0)`;
             }
         }
 

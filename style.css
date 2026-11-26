@@ -480,6 +480,12 @@ label {
     position: relative;
 }
 
+@media (min-width: 992px) {
+    .hero-avatar-wrap {
+        margin-top: -28px;
+    }
+}
+
 .hero-avatar {
     width: 450px;
     max-width: 100%;
@@ -532,3 +538,35 @@ label {
         font-size: 0.85rem;
     }
 }
+
+/* =========================================================
+   CMS ADDITIONS: repo icon, case body, admin live-preview mode
+   ========================================================= */
+.repo-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.15rem;
+    background: linear-gradient(135deg, rgba(0, 119, 255, 0.55), rgba(0, 229, 255, 0.35));
+    border: 1px solid rgba(120, 210, 255, 0.35);
+}
+
+.case-detail-card strong { color: #fff; }
+.case-detail-card .case-p,
+.case-detail-card .case-list { line-height: 1.8; }
+.case-detail-card h5 { color: #fff; }
+
+.is-preview .anim-rise,
+.is-preview .anim-scale,
+.is-preview .word-inner,
+.is-preview .section-accent-line {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+.is-preview .scroll-progress-bar { display: none; }

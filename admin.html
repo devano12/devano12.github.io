@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin · Devano Saputra</title>
+    <link rel="icon" type="image/png" href="favicon.png?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css?v=1">
+</head>
+<body>
+
+    <!-- LOGIN -->
+    <div id="login" class="login hidden">
+        <form id="loginForm" class="login-card" autocomplete="on">
+            <div class="brand big"><span class="logo">DS</span><div><b>Admin Panel</b><small>devanosaputra.pages.dev</small></div></div>
+            <label class="fld"><span>Password</span>
+                <input type="password" id="loginPw" autocomplete="current-password" required autofocus placeholder="Masukkan password admin">
+            </label>
+            <div id="loginErr" class="err hidden"></div>
+            <button class="btn primary block" id="loginBtn" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Masuk</button>
+            <a class="muted center" href="/">&larr; Kembali ke website</a>
+        </form>
+    </div>
+
+    <!-- APP -->
+    <div id="app" class="app hidden">
+        <aside class="side">
+            <div class="brand"><span class="logo">DS</span><div><b>Admin</b><small>Portfolio CMS</small></div></div>
+            <nav id="nav"></nav>
+            <div class="side-foot">
+                <a class="navlink" href="/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Lihat website</span></a>
+                <button class="navlink" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket"></i><span>Keluar</span></button>
+            </div>
+        </aside>
+
+        <div class="main">
+            <header class="top">
+                <div id="status" class="status"><i class="dot"></i><span>Memuat…</span></div>
+                <div class="top-actions">
+                    <button class="btn ghost" id="pvBtn" type="button"><i class="fa-regular fa-eye"></i><span>Pratinjau</span></button>
+                    <button class="btn primary" id="pubBtn" type="button"><i class="fa-solid fa-cloud-arrow-up"></i><span>Publikasikan</span></button>
+                </div>
+            </header>
+            <div class="work">
+                <section id="editor" class="editor"></section>
+                <aside id="previewPane" class="preview hidden">
+                    <div class="pv-bar">
+                        <div class="pv-devs">
+                            <button class="icon active" data-dev="100%" title="Desktop"><i class="fa-solid fa-desktop"></i></button>
+                            <button class="icon" data-dev="820px" title="Tablet"><i class="fa-solid fa-tablet-screen-button"></i></button>
+                            <button class="icon" data-dev="390px" title="HP"><i class="fa-solid fa-mobile-screen"></i></button>
+                        </div>
+                        <span class="muted">Pratinjau langsung (draft)</span>
+                        <div class="pv-devs">
+                            <button class="icon" id="pvReload" title="Muat ulang"><i class="fa-solid fa-rotate"></i></button>
+                            <button class="icon" id="pvClose" title="Tutup"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <div class="pv-stage"><iframe id="pvFrame" title="Pratinjau website"></iframe></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalRoot"></div>
+    <div id="toasts"></div>
+    <script src="admin.js?v=1" defer></script>
+</body>
+</html>
