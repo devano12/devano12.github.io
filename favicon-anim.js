@@ -1,4 +1,7 @@
 (function () {
+    // Firefox animates favicon.svg natively via GPU-composited SMIL at full 60/120/144fps
+    if (/Firefox\//i.test(navigator.userAgent)) return;
+
     const size = 64;
     const canvas = document.createElement("canvas");
     canvas.width = size;
@@ -13,75 +16,78 @@
         document.head.appendChild(link);
     }
 
-    let angle = 0;
     const cx = size / 2;
     const cy = size / 2;
-    const radius = 26;
+    const radius = 25.5;
+    const periodMs = 1350;
+    let lastUpdate = 0;
 
-    function renderFrame() {
-        ctx.clearRect(0, 0, size, size);
+    function tick(now) {
+        if (now - lastUpdate >= 16) {
+            lastUpdate = now;
+            const angle = ((now % periodMs) / periodMs) * Math.PI * 2;
 
-        // Dark circular base
-        ctx.beginPath();
-        ctx.arc(cx, cy, 30, 0, Math.PI * 2);
-        ctx.fillStyle = "#080c09";
-        ctx.fill();
+            ctx.clearRect(0, 0, size, size);
 
-        // Dim background ring track
-        ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(76, 175, 80, 0.2)";
-        ctx.lineWidth = 5;
-        ctx.stroke();
-
-        // Main spinning glowing neon green arc
-        ctx.save();
-        ctx.shadowColor = "#00ff66";
-        ctx.shadowBlur = 8;
-        ctx.lineCap = "round";
-
-        const segments = 14;
-        const arcSpan = Math.PI * 1.25;
-        for (let i = 0; i < segments; i++) {
-            const t0 = i / segments;
-            const t1 = (i + 1) / segments;
-            const a0 = angle - arcSpan + t0 * arcSpan;
-            const a1 = angle - arcSpan + t1 * arcSpan;
             ctx.beginPath();
-            ctx.arc(cx, cy, radius, a0, a1);
-            const alpha = (0.12 + 0.88 * t1).toFixed(2);
-            ctx.strokeStyle = i >= segments - 2
-                ? `rgba(190, 255, 215, ${alpha})`
-                : `rgba(0, 255, 110, ${alpha})`;
-            ctx.lineWidth = 3.5 + 2.8 * t1;
+            ctx.arc(cx, cy, 30, 0, Math.PI * 2);
+            ctx.fillStyle = "#080c09";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = "#18361f";
+            ctx.lineWidth = 5;
             ctx.stroke();
+
+            ctx.save();
+            ctx.shadowColor = "#00ff66";
+            ctx.shadowBlur = 7;
+            ctx.lineCap = "round";
+
+            if (typeof ctx.createConicGradient === "function") {
+                const grad = ctx.createConicGradient(angle, cx, cy);
+                grad.addColorStop(0, "rgba(0, 200, 83, 0)");
+                grad.addColorStop(0.35, "rgba(0, 200, 83, 0)");
+                grad.addColorStop(0.75, "rgba(0, 230, 118, 0.6)");
+                grad.addColorStop(0.96, "#00ff88");
+                grad.addColorStop(1, "#eafff2");
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, angle + Math.PI * 0.75, angle + Math.PI * 2);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 5.5;
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, angle - Math.PI * 1.25, angle);
+                ctx.strokeStyle = "#00ff88";
+                ctx.lineWidth = 5.5;
+                ctx.stroke();
+            }
+
+            const tipX = cx + Math.cos(angle) * radius;
+            const tipY = cy + Math.sin(angle) * radius;
+            ctx.beginPath();
+            ctx.arc(tipX, tipY, 3.1, 0, Math.PI * 2);
+            ctx.fillStyle = "#eafff2";
+            ctx.fill();
+            ctx.restore();
+
+            ctx.save();
+            ctx.shadowColor = "rgba(0, 255, 110, 0.5)";
+            ctx.shadowBlur = 3;
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "900 21px Montserrat, Arial, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("DS", cx, cy + 1.5);
+            ctx.restore();
+
+            link.type = "image/png";
+            link.href = canvas.toDataURL("image/png");
         }
-
-        // Bright leading spark dot
-        const tipX = cx + Math.cos(angle) * radius;
-        const tipY = cy + Math.sin(angle) * radius;
-        ctx.beginPath();
-        ctx.arc(tipX, tipY, 3.4, 0, Math.PI * 2);
-        ctx.fillStyle = "#eafff2";
-        ctx.fill();
-        ctx.restore();
-
-        // Crisp "DS" initials in center
-        ctx.save();
-        ctx.shadowColor = "rgba(0, 255, 110, 0.55)";
-        ctx.shadowBlur = 4;
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "900 22px Montserrat, Arial, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("DS", cx, cy + 1.5);
-        ctx.restore();
-
-        link.type = "image/png";
-        link.href = canvas.toDataURL("image/png");
-        angle = (angle + 0.26) % (Math.PI * 2);
+        requestAnimationFrame(tick);
     }
 
-    renderFrame();
-    setInterval(renderFrame, 100);
+    requestAnimationFrame(tick);
 })();
