@@ -245,24 +245,40 @@
             });
         });
 
-        // --- C. STORY ROWS (#cases & #hobi): CURTAIN UNVEIL + CONTINUOUS INNER PARALLAX ---
+        // --- C. STORY ROWS (#cases & #hobi): CURTAIN/PEDESTAL UNVEIL + CONTINUOUS PARALLAX ---
         document.querySelectorAll(".story-row").forEach((row, idx) => {
             const textCol = row.querySelector(".story-text");
             const mediaFrame = row.querySelector(".parallax-frame");
+            const pedestal = row.querySelector(".logo-pedestal");
             const innerImg = mediaFrame ? mediaFrame.querySelector("img") : null;
-            const fromDir = idx % 2 === 1 ? 45 : -45;
+            const fromDir = idx % 2 === 1 ? 36 : -36;
 
             if (textCol) {
                 gsap.from(textCol.children, {
-                    y: 36,
-                    x: isMobile ? 0 : fromDir * 0.45,
+                    y: 32,
+                    x: isMobile ? 0 : fromDir * 0.4,
                     opacity: 0,
-                    duration: 0.95,
-                    stagger: 0.1,
+                    duration: 0.9,
+                    stagger: 0.09,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: row,
-                        start: "top 82%",
+                        start: "top 84%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            }
+
+            if (pedestal) {
+                gsap.from(pedestal, {
+                    scale: 0.85,
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.95,
+                    ease: "back.out(1.4)",
+                    scrollTrigger: {
+                        trigger: row,
+                        start: "top 84%",
                         toggleActions: "play none none reverse"
                     }
                 });
@@ -272,29 +288,28 @@
                 gsap.fromTo(
                     mediaFrame,
                     {
-                        clipPath: "inset(14% 10% 14% 10% round 14px)",
-                        scale: 0.92,
+                        clipPath: "inset(12% 8% 12% 8% round 18px)",
+                        scale: 0.94,
                         opacity: 0
                     },
                     {
-                        clipPath: "inset(0% 0% 0% 0% round 14px)",
+                        clipPath: "inset(0% 0% 0% 0% round 18px)",
                         scale: 1,
                         opacity: 1,
-                        duration: 1.1,
+                        duration: 1.05,
                         ease: "expo.out",
                         scrollTrigger: {
                             trigger: row,
-                            start: "top 82%",
+                            start: "top 84%",
                             toggleActions: "play none none reverse"
                         }
                     }
                 );
 
-                // Continuous vertical scrub parallax inside the image window!
                 if (innerImg) {
                     gsap.fromTo(
                         innerImg,
-                        { yPercent: -7, scale: 1.06 },
+                        { yPercent: -7, scale: 1.05 },
                         {
                             yPercent: 7,
                             scale: 1.0,

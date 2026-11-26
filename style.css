@@ -4,7 +4,7 @@ html {
     overflow-x: hidden;
 }
 
-/* Lenis Inertia Smooth Scroll compatibility (prevents native CSS smooth-scroll conflict) */
+/* Lenis Inertia Smooth Scroll compatibility */
 html.lenis,
 html.lenis body {
     height: auto;
@@ -25,14 +25,14 @@ p, .mono-text {
     font-family: 'Space Mono', monospace, 'Courier New';
     font-size: 0.9rem;
     color: #b0b8c4;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
 .bg-dark-custom { background-color: #070b12; }
-.bg-light-custom { background-color: #ffffff; }
+.bg-light-custom { background-color: #f7f9fc; }
 
 .text-light-custom { color: #f8f9fa; }
-.text-dark-custom { color: #111111; }
+.text-dark-custom { color: #0f172a; }
 .border-dark-custom { border-color: #222222 !important; }
 
 /* =========================================================
@@ -54,7 +54,7 @@ p, .mono-text {
 }
 
 /* =========================================================
-   AURORA MESH + CYBER GRID + CONSTELLATION STAGE (DARK)
+   DARK STAGE: AURORA MESH + CYBER GRID + CONSTELLATION
    ========================================================= */
 .dark-stage {
     position: relative;
@@ -119,6 +119,66 @@ p, .mono-text {
     animation: auroraFloat3 20s ease-in-out infinite alternate;
 }
 
+/* =========================================================
+   LIGHT STAGE: PEARL MIST + TOPOGRAPHIC / DOT TEXTURE
+   ========================================================= */
+.light-stage {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
+    color: #0f172a;
+    isolation: isolate;
+}
+
+/* Subtle architectural dot-grid + topographic contour feel */
+.light-stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(rgba(15, 23, 42, 0.085) 1px, transparent 1px),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%230ea5e9' stroke-opacity='0.06' stroke-width='1.2'%3E%3Cpath d='M-50 120 Q 90 40 210 130 T 450 110'/%3E%3Cpath d='M-50 165 Q 100 85 220 175 T 450 155'/%3E%3Cpath d='M-50 280 Q 120 200 260 290 T 450 260'/%3E%3Cpath d='M-50 325 Q 130 245 270 335 T 450 305'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 28px 28px, 420px 420px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 100%);
+    mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 100%);
+}
+
+.light-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+.light-orb.orb-sky {
+    width: 480px;
+    height: 480px;
+    top: -80px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.14) 0%, rgba(14, 165, 233, 0) 70%);
+    animation: auroraFloat2 20s ease-in-out infinite alternate;
+}
+
+.light-orb.orb-mint {
+    width: 460px;
+    height: 460px;
+    bottom: -90px;
+    left: -100px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.13) 0%, rgba(245, 158, 11, 0.07) 50%, rgba(0, 0, 0, 0) 72%);
+    animation: auroraFloat1 22s ease-in-out infinite alternate;
+}
+
+.light-stage > nav,
+.light-stage > section,
+.light-stage > .container {
+    position: relative;
+    z-index: 2;
+}
+
 @keyframes auroraFloat1 {
     0% { transform: translate3d(0, 0, 0) scale(1); }
     100% { transform: translate3d(70px, 45px, 0) scale(1.14); }
@@ -151,7 +211,7 @@ p, .mono-text {
 }
 
 /* =========================================================
-   CINEMATIC WORD MASK & PARALLAX SHOWCASE FRAMES
+   CINEMATIC WORD MASK, ACADEMIC CARDS & EMBLEM PEDESTALS
    ========================================================= */
 .word-mask {
     display: inline-block;
@@ -176,6 +236,94 @@ p, .mono-text {
     will-change: transform, opacity;
 }
 
+/* Clean card row for each school so layout looks structured & balanced */
+.education-card {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 24px;
+    padding: 2.25rem 2.5rem;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.05);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.09);
+    border-color: rgba(14, 165, 233, 0.25);
+}
+
+/*Uncropped pure-white Emblem Pedestal for school/university logos */
+.logo-pedestal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 26px;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    will-change: transform;
+}
+
+.education-card:hover .logo-pedestal {
+    transform: scale(1.04) rotate(-1deg);
+    box-shadow: 0 18px 40px rgba(0, 130, 255, 0.13);
+}
+
+.logo-pedestal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    mix-blend-mode: multiply;
+    display: block;
+}
+
+/* Case Study Detail Page Header & Emblem */
+.case-detail-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 24px;
+    padding: 2.5rem;
+}
+
+.case-detail-card-light {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+}
+
+.case-logo-badge {
+    flex-shrink: 0;
+    width: 112px;
+    height: 112px;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.case-logo-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    mix-blend-mode: multiply;
+}
+
+/* Parallax Frame for real photos & videos (#hobi) */
 .parallax-frame {
     position: relative;
     display: inline-block;
@@ -183,14 +331,13 @@ p, .mono-text {
     max-width: 450px;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    border-radius: 14px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
     transform: translateZ(0);
     will-change: transform, clip-path;
 }
 
-.parallax-frame > img,
-.parallax-frame > video {
+.parallax-frame > img {
     width: 100%;
     height: 116%;
     margin-top: -8%;
@@ -200,8 +347,27 @@ p, .mono-text {
 }
 
 .parallax-frame > video {
+    width: 100%;
     height: 100%;
-    margin-top: 0;
+    object-fit: cover;
+    display: block;
+}
+
+.hobi-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 22px;
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.05);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.hobi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 46px rgba(15, 23, 42, 0.1);
 }
 
 /* =========================================================
@@ -214,7 +380,7 @@ p, .mono-text {
     font-weight: bold;
     border: none;
     padding: 12px 30px;
-    border-radius: 6px;
+    border-radius: 8px;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
     box-shadow: 0 0 20px rgba(76, 175, 80, 0.55);
 }
@@ -226,19 +392,19 @@ p, .mono-text {
     color: white;
 }
 
-.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.btn-teal { background-color: #20b2aa; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.btn-teal { background-color: #0d9488; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .btn-orange:hover, .btn-blue:hover, .btn-teal:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
 }
 
 .badge-custom {
     font-family: 'Space Mono';
-    font-size: 0.7rem;
-    padding: 5px 10px;
-    border-radius: 12px;
+    font-size: 0.72rem;
+    padding: 6px 12px;
+    border-radius: 999px;
 }
 
 .testimonial-card {
@@ -246,7 +412,7 @@ p, .mono-text {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(100, 180, 255, 0.18);
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 30px;
     position: relative;
     transform-style: preserve-3d;
@@ -271,7 +437,7 @@ p, .mono-text {
 .form-control-custom {
     background-color: rgba(248, 249, 250, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 12px;
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
@@ -318,12 +484,6 @@ label {
     will-change: transform;
 }
 
-.square-media {
-    max-width: 450px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-}
-
 @media (max-width: 991.98px) {
     .hero-avatar {
         width: 260px;
@@ -331,8 +491,13 @@ label {
     .parallax-frame {
         max-width: 100%;
     }
-    .square-media {
-        max-width: 100%;
+    .education-card {
+        padding: 1.75rem 1.5rem;
+    }
+    .logo-pedestal {
+        width: 175px;
+        height: 175px;
+        padding: 18px;
     }
 }
 
@@ -342,6 +507,15 @@ label {
     }
     .testimonial-card {
         padding: 22px;
+    }
+    .case-detail-card,
+    .case-detail-card-light {
+        padding: 1.5rem;
+    }
+    .case-logo-badge {
+        width: 88px;
+        height: 88px;
+        padding: 10px;
     }
     p, .mono-text {
         font-size: 0.85rem;
