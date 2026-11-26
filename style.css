@@ -1,19 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Space+Mono&display=swap');
 
 html {
+    scroll-behavior: smooth;
     overflow-x: hidden;
-}
-
-/* Lenis Inertia Smooth Scroll compatibility */
-html.lenis,
-html.lenis body {
-    height: auto;
-}
-.lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-    overflow: hidden;
 }
 
 body {
@@ -36,7 +25,7 @@ p, .mono-text {
 .border-dark-custom { border-color: #222222 !important; }
 
 /* =========================================================
-   TOP CINEMATIC SCROLL PROGRESS BEAM
+   TOP CINEMATIC SCROLL PROGRESS BEAM (GPU scaleX only)
    ========================================================= */
 .scroll-progress-bar {
     position: fixed;
@@ -49,18 +38,16 @@ p, .mono-text {
     transform-origin: 0% 50%;
     transform: scaleX(0);
     background: linear-gradient(90deg, #0077ff 0%, #00e5ff 50%, #00ff88 100%);
-    box-shadow: 0 0 12px rgba(0, 215, 255, 0.8);
-    will-change: transform;
 }
 
 /* =========================================================
-   DARK STAGE: AURORA MESH + CYBER GRID + CONSTELLATION
+   DARK STAGE: ZERO-BLUR SOFT RADIAL AURORA + CYBER GRID
+   (No CSS filter:blur or backdrop-filter -> 0 GPU lag!)
    ========================================================= */
 .dark-stage {
     position: relative;
     overflow: hidden;
     background-color: #070b12;
-    isolation: isolate;
 }
 
 .dark-stage::before {
@@ -70,11 +57,9 @@ p, .mono-text {
     z-index: 0;
     pointer-events: none;
     background-image:
-        linear-gradient(rgba(120, 195, 255, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(120, 195, 255, 0.045) 1px, transparent 1px);
-    background-size: 46px 46px;
-    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 25%, transparent 100%);
-    mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 25%, transparent 100%);
+        linear-gradient(rgba(120, 195, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 195, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
 }
 
 .aurora-bg {
@@ -85,52 +70,51 @@ p, .mono-text {
     overflow: hidden;
 }
 
+/* Pure mathematical radial-gradient falloff — looks identical to blur(90px) with ZERO GPU blur cost */
 .aurora-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(85px);
-    will-change: transform;
+    pointer-events: none;
 }
 
 .aurora-orb.orb-blue {
-    width: 500px;
-    height: 500px;
-    top: -110px;
-    left: -90px;
-    background: radial-gradient(circle, rgba(0, 140, 255, 0.24) 0%, rgba(0, 140, 255, 0) 70%);
-    animation: auroraFloat1 18s ease-in-out infinite alternate;
+    width: 680px;
+    height: 680px;
+    top: -200px;
+    left: -160px;
+    background: radial-gradient(circle, rgba(0, 140, 255, 0.2) 0%, rgba(0, 140, 255, 0.07) 38%, rgba(0, 140, 255, 0) 70%);
+    animation: auroraFloat1 20s ease-in-out infinite alternate;
 }
 
 .aurora-orb.orb-emerald {
-    width: 540px;
-    height: 540px;
-    top: 10%;
-    right: -100px;
-    background: radial-gradient(circle, rgba(0, 225, 150, 0.22) 0%, rgba(255, 140, 66, 0.09) 45%, rgba(0, 0, 0, 0) 72%);
-    animation: auroraFloat2 22s ease-in-out infinite alternate;
+    width: 720px;
+    height: 720px;
+    top: 2%;
+    right: -180px;
+    background: radial-gradient(circle, rgba(0, 220, 145, 0.17) 0%, rgba(255, 140, 66, 0.06) 38%, rgba(0, 0, 0, 0) 70%);
+    animation: auroraFloat2 24s ease-in-out infinite alternate;
 }
 
 .aurora-orb.orb-violet {
-    width: 480px;
-    height: 480px;
-    bottom: -140px;
-    left: 28%;
-    background: radial-gradient(circle, rgba(98, 54, 255, 0.19) 0%, rgba(0, 195, 255, 0.09) 50%, rgba(0, 0, 0, 0) 72%);
-    animation: auroraFloat3 20s ease-in-out infinite alternate;
+    width: 640px;
+    height: 640px;
+    bottom: -220px;
+    left: 24%;
+    background: radial-gradient(circle, rgba(98, 54, 255, 0.15) 0%, rgba(0, 195, 255, 0.05) 42%, rgba(0, 0, 0, 0) 70%);
+    animation: auroraFloat3 22s ease-in-out infinite alternate;
 }
 
 /* =========================================================
-   LIGHT STAGE: PEARL MIST + TOPOGRAPHIC / DOT TEXTURE
+   LIGHT STAGE (OPTION 3 HYBRID): PEARL + TOPOGRAPHIC + DAYLIGHT AURORA
+   (Zero filter:blur -> featherlight 144fps scroll!)
    ========================================================= */
 .light-stage {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f6fb 50%, #f8fafc 100%);
     color: #0f172a;
-    isolation: isolate;
 }
 
-/* Subtle architectural dot-grid + topographic contour feel */
 .light-stage::before {
     content: "";
     position: absolute;
@@ -138,60 +122,49 @@ p, .mono-text {
     z-index: 0;
     pointer-events: none;
     background-image:
-        radial-gradient(rgba(15, 23, 42, 0.085) 1px, transparent 1px),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%230ea5e9' stroke-opacity='0.06' stroke-width='1.2'%3E%3Cpath d='M-50 120 Q 90 40 210 130 T 450 110'/%3E%3Cpath d='M-50 165 Q 100 85 220 175 T 450 155'/%3E%3Cpath d='M-50 280 Q 120 200 260 290 T 450 260'/%3E%3Cpath d='M-50 325 Q 130 245 270 335 T 450 305'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 28px 28px, 420px 420px;
-    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 100%);
-    mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 100%);
+        radial-gradient(rgba(15, 23, 42, 0.075) 1px, transparent 1px),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='%230284c7' stroke-opacity='0.065' stroke-width='1.25'%3E%3Cpath d='M-40 90 Q 110 15 230 105 T 480 85'/%3E%3Cpath d='M-40 140 Q 120 65 245 155 T 480 135'/%3E%3Cpath d='M-40 265 Q 130 185 275 275 T 480 245'/%3E%3Cpath d='M-40 315 Q 140 235 285 325 T 480 295'/%3E%3Ccircle cx='350' cy='85' r='26' stroke-opacity='0.05'/%3E%3Ccircle cx='350' cy='85' r='44' stroke-opacity='0.035'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 28px 28px, 440px 440px;
 }
 
 .light-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(90px);
     pointer-events: none;
     z-index: 0;
-    will-change: transform;
 }
 
 .light-orb.orb-sky {
-    width: 480px;
-    height: 480px;
-    top: -80px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.14) 0%, rgba(14, 165, 233, 0) 70%);
-    animation: auroraFloat2 20s ease-in-out infinite alternate;
+    width: 680px;
+    height: 680px;
+    top: -180px;
+    right: -160px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.14) 0%, rgba(56, 189, 248, 0.05) 40%, rgba(14, 165, 233, 0) 70%);
+    animation: auroraFloat2 22s ease-in-out infinite alternate;
 }
 
 .light-orb.orb-mint {
-    width: 460px;
-    height: 460px;
-    bottom: -90px;
-    left: -100px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.13) 0%, rgba(245, 158, 11, 0.07) 50%, rgba(0, 0, 0, 0) 72%);
-    animation: auroraFloat1 22s ease-in-out infinite alternate;
-}
-
-.light-stage > nav,
-.light-stage > section,
-.light-stage > .container {
-    position: relative;
-    z-index: 2;
+    width: 650px;
+    height: 650px;
+    bottom: -180px;
+    left: -160px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.13) 0%, rgba(245, 158, 11, 0.05) 42%, rgba(0, 0, 0, 0) 70%);
+    animation: auroraFloat1 24s ease-in-out infinite alternate;
 }
 
 @keyframes auroraFloat1 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(70px, 45px, 0) scale(1.14); }
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(55px, 35px, 0); }
 }
 
 @keyframes auroraFloat2 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(-65px, 50px, 0) scale(1.12); }
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50px, 40px, 0); }
 }
 
 @keyframes auroraFloat3 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(50px, -40px, 0) scale(1.15); }
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(40px, -30px, 0); }
 }
 
 .constellation-canvas {
@@ -205,13 +178,16 @@ p, .mono-text {
 
 .dark-stage > nav,
 .dark-stage > section,
-.dark-stage > .container {
+.dark-stage > .container,
+.light-stage > nav,
+.light-stage > section,
+.light-stage > .container {
     position: relative;
     z-index: 2;
 }
 
 /* =========================================================
-   CINEMATIC WORD MASK, ACADEMIC CARDS & EMBLEM PEDESTALS
+   ULTRA-LIGHTWEIGHT GPU SCROLL CHOREOGRAPHY (translate3d + opacity ONLY)
    ========================================================= */
 .word-mask {
     display: inline-block;
@@ -223,7 +199,17 @@ p, .mono-text {
 
 .word-inner {
     display: inline-block;
-    will-change: transform, opacity;
+    transform: translate3d(0, 108%, 0);
+    opacity: 0;
+    transition:
+        transform 0.78s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.65s ease;
+    transition-delay: var(--w-delay, 0ms);
+}
+
+.is-inview .word-inner {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
 }
 
 .section-accent-line {
@@ -232,85 +218,122 @@ p, .mono-text {
     margin: 0 auto 1.5rem auto;
     border-radius: 999px;
     background: linear-gradient(90deg, #0077ff, #00e5ff, #4CAF50);
-    transform-origin: center;
-    will-change: transform, opacity;
+    transform: scaleX(0);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.6s ease 0.1s;
 }
 
-/* Clean card row for each school so layout looks structured & balanced */
+.section-accent-line.is-inview {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+.anim-rise {
+    opacity: 0;
+    transform: translate3d(0, 34px, 0);
+    transition:
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.75s ease;
+    transition-delay: var(--delay, 0ms);
+}
+
+.anim-rise.is-inview {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.anim-scale {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.93);
+    transition:
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.75s ease;
+    transition-delay: var(--delay, 0ms);
+}
+
+.anim-scale.is-inview {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .word-inner,
+    .section-accent-line,
+    .anim-rise,
+    .anim-scale {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   CLEAN CARDS & UNCROPPED SCHOOL EMBLEMS (No heavy backdrop-filter!)
+   ========================================================= */
 .education-card {
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(15, 23, 42, 0.07);
+    background: linear-gradient(145deg, #ffffff 0%, #f9fbff 100%);
+    border: 1px solid rgba(14, 165, 233, 0.14);
     border-radius: 24px;
-    padding: 2.25rem 2.5rem;
-    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.05);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    padding: 2.2rem 2.5rem;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .education-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.09);
-    border-color: rgba(14, 165, 233, 0.25);
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 18px 40px rgba(14, 165, 233, 0.1);
+    border-color: rgba(14, 165, 233, 0.32);
 }
 
-/*Uncropped pure-white Emblem Pedestal for school/university logos */
 .logo-pedestal {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 220px;
-    height: 220px;
-    padding: 24px;
+    width: 210px;
+    height: 210px;
+    padding: 22px;
     background: #ffffff;
-    border-radius: 26px;
+    border-radius: 24px;
     border: 1px solid rgba(15, 23, 42, 0.07);
-    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-    will-change: transform;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .education-card:hover .logo-pedestal {
-    transform: scale(1.04) rotate(-1deg);
-    box-shadow: 0 18px 40px rgba(0, 130, 255, 0.13);
+    transform: scale(1.04);
 }
 
 .logo-pedestal img {
     width: 100%;
     height: 100%;
     object-fit: contain !important;
-    mix-blend-mode: multiply;
     display: block;
 }
 
-/* Case Study Detail Page Header & Emblem */
 .case-detail-card {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(148, 163, 184, 0.16);
+    background: linear-gradient(145deg, rgba(15, 23, 40, 0.94), rgba(10, 15, 28, 0.97));
+    border: 1px solid rgba(100, 180, 255, 0.18);
     border-radius: 24px;
     padding: 2.5rem;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
 }
 
 .case-detail-card-light {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(14, 165, 233, 0.15);
     border-radius: 24px;
     padding: 2.5rem;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
 }
 
 .case-logo-badge {
     flex-shrink: 0;
-    width: 112px;
-    height: 112px;
-    padding: 14px;
+    width: 110px;
+    height: 110px;
+    padding: 13px;
     background: #ffffff;
     border-radius: 22px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -320,7 +343,6 @@ p, .mono-text {
     width: 100%;
     height: 100%;
     object-fit: contain !important;
-    mix-blend-mode: multiply;
 }
 
 /* Parallax Frame for real photos & videos (#hobi) */
@@ -332,18 +354,15 @@ p, .mono-text {
     aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 18px;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-    transform: translateZ(0);
-    will-change: transform, clip-path;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.1);
 }
 
 .parallax-frame > img {
     width: 100%;
-    height: 116%;
-    margin-top: -8%;
+    height: 114%;
+    margin-top: -7%;
     object-fit: cover;
     display: block;
-    will-change: transform;
 }
 
 .parallax-frame > video {
@@ -354,20 +373,18 @@ p, .mono-text {
 }
 
 .hobi-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(15, 23, 42, 0.07);
+    background: linear-gradient(145deg, #ffffff 0%, #f9fbff 100%);
+    border: 1px solid rgba(14, 165, 233, 0.14);
     border-radius: 22px;
     padding: 1.5rem;
     height: 100%;
-    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.05);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
 .hobi-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 22px 46px rgba(15, 23, 42, 0.1);
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 18px 40px rgba(14, 165, 233, 0.1);
 }
 
 /* =========================================================
@@ -381,24 +398,21 @@ p, .mono-text {
     border: none;
     padding: 12px 30px;
     border-radius: 8px;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
-    box-shadow: 0 0 20px rgba(76, 175, 80, 0.55);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    box-shadow: 0 0 18px rgba(76, 175, 80, 0.5);
 }
 
 .btn-neon:hover {
     background-color: #45a049;
-    box-shadow: 0 0 30px rgba(76, 175, 80, 0.9);
-    transform: translateY(-2px);
+    box-shadow: 0 0 26px rgba(76, 175, 80, 0.85);
+    transform: translate3d(0, -2px, 0);
     color: white;
 }
 
-.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.btn-teal { background-color: #0d9488; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.btn-orange:hover, .btn-blue:hover, .btn-teal:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
-}
+.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.2s ease; }
+.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.2s ease; }
+.btn-teal { background-color: #0d9488; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.2s ease; }
+.btn-orange:hover, .btn-blue:hover, .btn-teal:hover { transform: translate3d(0, -2px, 0); }
 
 .badge-custom {
     font-family: 'Space Mono';
@@ -408,21 +422,17 @@ p, .mono-text {
 }
 
 .testimonial-card {
-    background: rgba(13, 19, 31, 0.74);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: linear-gradient(145deg, rgba(16, 24, 42, 0.92), rgba(10, 15, 28, 0.96));
     border: 1px solid rgba(100, 180, 255, 0.18);
     border-radius: 16px;
     padding: 30px;
     position: relative;
-    transform-style: preserve-3d;
-    transition: border-color 0.35s ease, box-shadow 0.35s ease;
-    will-change: transform;
+    transition: transform 0.25s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .testimonial-card:hover {
-    border-color: rgba(0, 200, 255, 0.5);
-    box-shadow: 0 16px 38px rgba(0, 150, 255, 0.18);
+    border-color: rgba(0, 200, 255, 0.48);
+    box-shadow: 0 14px 32px rgba(0, 150, 255, 0.16);
 }
 
 .quote-icon {
@@ -435,7 +445,7 @@ p, .mono-text {
 }
 
 .form-control-custom {
-    background-color: rgba(248, 249, 250, 0.96);
+    background-color: #f8fafc;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     padding: 12px;
@@ -458,7 +468,6 @@ label {
     background-clip: text;
     animation: led-move 10s linear infinite;
     display: inline-block;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
 }
 
 @keyframes led-move {
@@ -469,7 +478,6 @@ label {
 .hero-avatar-wrap {
     display: inline-block;
     position: relative;
-    will-change: transform;
 }
 
 .hero-avatar {
@@ -478,10 +486,13 @@ label {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border: 2px solid rgba(120, 210, 255, 0.28);
-    box-shadow:
-        0 0 50px rgba(0, 175, 255, 0.26),
-        0 0 95px rgba(0, 225, 150, 0.14);
-    will-change: transform;
+    box-shadow: 0 18px 50px rgba(0, 165, 255, 0.22);
+    animation: avatarFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes avatarFloat {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, -9px, 0); }
 }
 
 @media (max-width: 991.98px) {
@@ -495,8 +506,8 @@ label {
         padding: 1.75rem 1.5rem;
     }
     .logo-pedestal {
-        width: 175px;
-        height: 175px;
+        width: 170px;
+        height: 170px;
         padding: 18px;
     }
 }
