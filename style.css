@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Space+Mono&display=swap');
 
 html {
-    scroll-behavior: smooth;
     overflow-x: hidden;
+}
+
+/* Lenis Inertia Smooth Scroll compatibility (prevents native CSS smooth-scroll conflict) */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+    overflow: hidden;
 }
 
 body {
@@ -25,6 +36,24 @@ p, .mono-text {
 .border-dark-custom { border-color: #222222 !important; }
 
 /* =========================================================
+   TOP CINEMATIC SCROLL PROGRESS BEAM
+   ========================================================= */
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 9999;
+    pointer-events: none;
+    transform-origin: 0% 50%;
+    transform: scaleX(0);
+    background: linear-gradient(90deg, #0077ff 0%, #00e5ff 50%, #00ff88 100%);
+    box-shadow: 0 0 12px rgba(0, 215, 255, 0.8);
+    will-change: transform;
+}
+
+/* =========================================================
    AURORA MESH + CYBER GRID + CONSTELLATION STAGE (DARK)
    ========================================================= */
 .dark-stage {
@@ -34,7 +63,6 @@ p, .mono-text {
     isolation: isolate;
 }
 
-/* Subtle perspective tech grid with soft edge fade */
 .dark-stage::before {
     content: "";
     position: absolute;
@@ -49,7 +77,6 @@ p, .mono-text {
     mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 25%, transparent 100%);
 }
 
-/* Soft floating Aurora glow orbs (low opacity so text stays 100% crisp) */
 .aurora-bg {
     position: absolute;
     inset: 0;
@@ -66,29 +93,29 @@ p, .mono-text {
 }
 
 .aurora-orb.orb-blue {
-    width: 480px;
-    height: 480px;
+    width: 500px;
+    height: 500px;
     top: -110px;
     left: -90px;
-    background: radial-gradient(circle, rgba(0, 140, 255, 0.22) 0%, rgba(0, 140, 255, 0) 70%);
+    background: radial-gradient(circle, rgba(0, 140, 255, 0.24) 0%, rgba(0, 140, 255, 0) 70%);
     animation: auroraFloat1 18s ease-in-out infinite alternate;
 }
 
 .aurora-orb.orb-emerald {
-    width: 520px;
-    height: 520px;
-    top: 12%;
+    width: 540px;
+    height: 540px;
+    top: 10%;
     right: -100px;
-    background: radial-gradient(circle, rgba(0, 225, 150, 0.2) 0%, rgba(255, 140, 66, 0.08) 45%, rgba(0, 0, 0, 0) 72%);
+    background: radial-gradient(circle, rgba(0, 225, 150, 0.22) 0%, rgba(255, 140, 66, 0.09) 45%, rgba(0, 0, 0, 0) 72%);
     animation: auroraFloat2 22s ease-in-out infinite alternate;
 }
 
 .aurora-orb.orb-violet {
-    width: 460px;
-    height: 460px;
+    width: 480px;
+    height: 480px;
     bottom: -140px;
     left: 28%;
-    background: radial-gradient(circle, rgba(98, 54, 255, 0.17) 0%, rgba(0, 195, 255, 0.08) 50%, rgba(0, 0, 0, 0) 72%);
+    background: radial-gradient(circle, rgba(98, 54, 255, 0.19) 0%, rgba(0, 195, 255, 0.09) 50%, rgba(0, 0, 0, 0) 72%);
     animation: auroraFloat3 20s ease-in-out infinite alternate;
 }
 
@@ -124,29 +151,57 @@ p, .mono-text {
 }
 
 /* =========================================================
-   60FPS GPU SCROLL-UP REVEAL ANIMATION
+   CINEMATIC WORD MASK & PARALLAX SHOWCASE FRAMES
    ========================================================= */
-.reveal-up {
-    opacity: 0;
-    transform: translate3d(0, 32px, 0);
-    transition:
-        opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--delay, 0ms);
-    will-change: opacity, transform;
+.word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
 }
 
-.reveal-up.is-visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+.word-inner {
+    display: inline-block;
+    will-change: transform, opacity;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .reveal-up {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-    }
+.section-accent-line {
+    width: 72px;
+    height: 3px;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #0077ff, #00e5ff, #4CAF50);
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+.parallax-frame {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 450px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+    transform: translateZ(0);
+    will-change: transform, clip-path;
+}
+
+.parallax-frame > img,
+.parallax-frame > video {
+    width: 100%;
+    height: 116%;
+    margin-top: -8%;
+    object-fit: cover;
+    display: block;
+    will-change: transform;
+}
+
+.parallax-frame > video {
+    height: 100%;
+    margin-top: 0;
 }
 
 /* =========================================================
@@ -171,10 +226,13 @@ p, .mono-text {
     color: white;
 }
 
-.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease; }
-.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease; }
-.btn-teal { background-color: #20b2aa; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease; }
-.btn-orange:hover, .btn-blue:hover, .btn-teal:hover { transform: translateY(-2px); }
+.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.btn-teal { background-color: #20b2aa; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.btn-orange:hover, .btn-blue:hover, .btn-teal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
 
 .badge-custom {
     font-family: 'Space Mono';
@@ -184,20 +242,21 @@ p, .mono-text {
 }
 
 .testimonial-card {
-    background: rgba(13, 19, 31, 0.72);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(100, 180, 255, 0.16);
-    border-radius: 12px;
+    background: rgba(13, 19, 31, 0.74);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(100, 180, 255, 0.18);
+    border-radius: 14px;
     padding: 30px;
     position: relative;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    transform-style: preserve-3d;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    will-change: transform;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(0, 200, 255, 0.45);
-    box-shadow: 0 12px 32px rgba(0, 150, 255, 0.14);
+    border-color: rgba(0, 200, 255, 0.5);
+    box-shadow: 0 16px 38px rgba(0, 150, 255, 0.18);
 }
 
 .quote-icon {
@@ -210,7 +269,7 @@ p, .mono-text {
 }
 
 .form-control-custom {
-    background-color: rgba(248, 249, 250, 0.95);
+    background-color: rgba(248, 249, 250, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 6px;
     padding: 12px;
@@ -241,21 +300,22 @@ label {
     100% { background-position: 200% center; }
 }
 
+.hero-avatar-wrap {
+    display: inline-block;
+    position: relative;
+    will-change: transform;
+}
+
 .hero-avatar {
     width: 450px;
     max-width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border: 2px solid rgba(120, 210, 255, 0.22);
+    border: 2px solid rgba(120, 210, 255, 0.28);
     box-shadow:
-        0 0 45px rgba(0, 175, 255, 0.22),
-        0 0 85px rgba(0, 225, 150, 0.12);
-    animation: avatarFloat 6s ease-in-out infinite alternate;
-}
-
-@keyframes avatarFloat {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(0, -8px, 0); }
+        0 0 50px rgba(0, 175, 255, 0.26),
+        0 0 95px rgba(0, 225, 150, 0.14);
+    will-change: transform;
 }
 
 .square-media {
@@ -267,6 +327,9 @@ label {
 @media (max-width: 991.98px) {
     .hero-avatar {
         width: 260px;
+    }
+    .parallax-frame {
+        max-width: 100%;
     }
     .square-media {
         max-width: 100%;
