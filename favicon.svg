@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="comet" gradientUnits="userSpaceOnUse" x1="14" y1="50" x2="57.5" y2="32">
-      <stop offset="0%" stop-color="#00c853" stop-opacity="0"/>
-      <stop offset="45%" stop-color="#00e676" stop-opacity="0.55"/>
-      <stop offset="85%" stop-color="#00ff88" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#eafff2" stop-opacity="1"/>
+    <linearGradient id="cometBlue" gradientUnits="userSpaceOnUse" x1="14" y1="50" x2="57.5" y2="32">
+      <stop offset="0%" stop-color="#0055ff" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#0099ff" stop-opacity="0.6"/>
+      <stop offset="85%" stop-color="#00d8ff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ebfcff" stop-opacity="1"/>
     </linearGradient>
-    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+    <filter id="glowBlue" x="-25%" y="-25%" width="150%" height="150%">
       <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
@@ -15,18 +15,18 @@
     </filter>
   </defs>
 
-  <circle cx="32" cy="32" r="30" fill="#080c09"/>
-  <circle cx="32" cy="32" r="25.5" fill="none" stroke="#18361f" stroke-width="5"/>
+  <circle cx="32" cy="32" r="30" fill="#060b16"/>
+  <circle cx="32" cy="32" r="25.5" fill="none" stroke="#102c54" stroke-width="5"/>
 
-  <g filter="url(#glow)">
-    <path d="M 13.97 50.03 A 25.5 25.5 0 1 1 57.5 32" fill="none" stroke="url(#comet)" stroke-width="5.5" stroke-linecap="round"/>
-    <circle cx="57.5" cy="32" r="3.1" fill="#eafff2"/>
+  <g filter="url(#glowBlue)">
+    <path d="M 13.97 50.03 A 25.5 25.5 0 1 1 57.5 32" fill="none" stroke="url(#cometBlue)" stroke-width="5.5" stroke-linecap="round"/>
+    <circle cx="57.5" cy="32" r="3.1" fill="#ebfcff"/>
     <animateTransform
       attributeName="transform"
       type="rotate"
       from="0 32 32"
       to="360 32 32"
-      dur="1.35s"
+      dur="1.2s"
       repeatCount="indefinite"/>
   </g>
 

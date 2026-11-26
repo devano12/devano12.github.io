@@ -1,5 +1,5 @@
 (function () {
-    // Firefox animates favicon.svg natively via GPU-composited SMIL at full 60/120/144fps
+    // Firefox & Zen Browser play the 50fps infinite-loop APNG (favicon.png) natively in C++ without ever stopping!
     if (/Firefox\//i.test(navigator.userAgent)) return;
 
     const size = 64;
@@ -19,75 +19,86 @@
     const cx = size / 2;
     const cy = size / 2;
     const radius = 25.5;
-    const periodMs = 1350;
-    let lastUpdate = 0;
+    const totalFrames = 48;
+    const preRendered = [];
 
-    function tick(now) {
-        if (now - lastUpdate >= 16) {
-            lastUpdate = now;
-            const angle = ((now % periodMs) / periodMs) * Math.PI * 2;
+    function drawAngle(angle) {
+        ctx.clearRect(0, 0, size, size);
 
-            ctx.clearRect(0, 0, size, size);
+        ctx.beginPath();
+        ctx.arc(cx, cy, 30, 0, Math.PI * 2);
+        ctx.fillStyle = "#060b16";
+        ctx.fill();
 
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = "#102c54";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.shadowColor = "#00b7ff";
+        ctx.shadowBlur = 7;
+        ctx.lineCap = "round";
+
+        if (typeof ctx.createConicGradient === "function") {
+            const grad = ctx.createConicGradient(angle, cx, cy);
+            grad.addColorStop(0, "rgba(0, 85, 255, 0)");
+            grad.addColorStop(0.3, "rgba(0, 85, 255, 0)");
+            grad.addColorStop(0.72, "rgba(0, 153, 255, 0.65)");
+            grad.addColorStop(0.95, "#00d8ff");
+            grad.addColorStop(1, "#ebfcff");
             ctx.beginPath();
-            ctx.arc(cx, cy, 30, 0, Math.PI * 2);
-            ctx.fillStyle = "#080c09";
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-            ctx.strokeStyle = "#18361f";
-            ctx.lineWidth = 5;
+            ctx.arc(cx, cy, radius, angle + Math.PI * 0.6, angle + Math.PI * 2);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 5.5;
             ctx.stroke();
-
-            ctx.save();
-            ctx.shadowColor = "#00ff66";
-            ctx.shadowBlur = 7;
-            ctx.lineCap = "round";
-
-            if (typeof ctx.createConicGradient === "function") {
-                const grad = ctx.createConicGradient(angle, cx, cy);
-                grad.addColorStop(0, "rgba(0, 200, 83, 0)");
-                grad.addColorStop(0.35, "rgba(0, 200, 83, 0)");
-                grad.addColorStop(0.75, "rgba(0, 230, 118, 0.6)");
-                grad.addColorStop(0.96, "#00ff88");
-                grad.addColorStop(1, "#eafff2");
-                ctx.beginPath();
-                ctx.arc(cx, cy, radius, angle + Math.PI * 0.75, angle + Math.PI * 2);
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = 5.5;
-                ctx.stroke();
-            } else {
-                ctx.beginPath();
-                ctx.arc(cx, cy, radius, angle - Math.PI * 1.25, angle);
-                ctx.strokeStyle = "#00ff88";
-                ctx.lineWidth = 5.5;
-                ctx.stroke();
-            }
-
-            const tipX = cx + Math.cos(angle) * radius;
-            const tipY = cy + Math.sin(angle) * radius;
+        } else {
             ctx.beginPath();
-            ctx.arc(tipX, tipY, 3.1, 0, Math.PI * 2);
-            ctx.fillStyle = "#eafff2";
-            ctx.fill();
-            ctx.restore();
-
-            ctx.save();
-            ctx.shadowColor = "rgba(0, 255, 110, 0.5)";
-            ctx.shadowBlur = 3;
-            ctx.fillStyle = "#ffffff";
-            ctx.font = "900 21px Montserrat, Arial, sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("DS", cx, cy + 1.5);
-            ctx.restore();
-
-            link.type = "image/png";
-            link.href = canvas.toDataURL("image/png");
+            ctx.arc(cx, cy, radius, angle - Math.PI * 1.4, angle);
+            ctx.strokeStyle = "#00d8ff";
+            ctx.lineWidth = 5.5;
+            ctx.stroke();
         }
-        requestAnimationFrame(tick);
+
+        const tipX = cx + Math.cos(angle) * radius;
+        const tipY = cy + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.arc(tipX, tipY, 3.1, 0, Math.PI * 2);
+        ctx.fillStyle = "#ebfcff";
+        ctx.fill();
+        ctx.restore();
+
+        ctx.save();
+        ctx.shadowColor = "rgba(0, 170, 255, 0.65)";
+        ctx.shadowBlur = 3.5;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "900 21px Montserrat, Arial, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("DS", cx, cy + 1.5);
+        ctx.restore();
+
+        return canvas.toDataURL("image/png");
     }
 
-    requestAnimationFrame(tick);
+    for (let i = 0; i < totalFrames; i++) {
+        preRendered.push(drawAngle((i / totalFrames) * Math.PI * 2));
+    }
+
+    let frameIdx = 0;
+    function step() {
+        link.type = "image/png";
+        link.href = preRendered[frameIdx];
+        frameIdx = (frameIdx + 1) % totalFrames;
+    }
+
+    // Use a Web Worker timer so Chromium never pauses or throttles the icon when switching tabs or windows
+    try {
+        const blob = new Blob(["setInterval(() => postMessage(0), 25);"], { type: "application/javascript" });
+        const worker = new Worker(URL.createObjectURL(blob));
+        worker.onmessage = step;
+    } catch (e) {
+        setInterval(step, 25);
+    }
 })();
