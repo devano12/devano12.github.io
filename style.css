@@ -409,10 +409,50 @@ p, .mono-text {
     color: white;
 }
 
-.btn-orange { background-color: #ff9800; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.2s ease; }
-.btn-blue { background-color: #0055ff; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.2s ease; }
-.btn-teal { background-color: #0d9488; color: white; font-family: 'Space Mono'; font-size: 0.8rem; font-weight: bold; border:none; border-radius: 8px; transition: transform 0.2s ease; }
-.btn-orange:hover, .btn-blue:hover, .btn-teal:hover { transform: translate3d(0, -2px, 0); }
+.btn-orange,
+.btn-orange:hover,
+.btn-orange:focus-visible,
+.btn-orange:active {
+    background-color: #ff9800 !important;
+    color: #111827 !important;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+}
+.btn-blue,
+.btn-blue:hover,
+.btn-blue:focus-visible,
+.btn-blue:active {
+    background-color: #0055ff !important;
+    color: #ffffff !important;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+}
+.btn-teal,
+.btn-teal:hover,
+.btn-teal:focus-visible,
+.btn-teal:active {
+    background-color: #0d9488 !important;
+    color: #ffffff !important;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+}
+.btn-orange, .btn-blue, .btn-teal {
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-orange:hover, .btn-blue:hover, .btn-teal:hover {
+    transform: translate3d(0, -2px, 0);
+    filter: brightness(1.08);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+}
 
 .badge-custom {
     font-family: 'Space Mono';
